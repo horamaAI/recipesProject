@@ -12,8 +12,11 @@ import allRecipes from './../../shared/recipe.json';
 
 export class RecipesComponentComponent implements OnInit {
 
-  recipes: Recipe[];
-  constructor() { }
+  recipes: any;
+
+  constructor() {
+    this.recipes = allRecipes;
+  }
 
   ngOnInit() {}
 
