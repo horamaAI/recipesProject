@@ -1,3 +1,26 @@
+<!--
 <p>
   recipes-component works!
 </p>
+
+
+
+<pre>{{ recipes | json }}</pre>
+-->
+
+<input type="text" [(ngModel)]="wordSearch" />
+<button (click)="handleSearch()">Search</button>
+
+<ion-list>
+  <ion-row>
+    <ion-col>Name</ion-col>
+    <ion-col>Cooktime</ion-col>
+  </ion-row>
+<ng-container *ngFor="let item of smallRecipes">
+  <ion-item>
+      <ion-row>
+        <ion-col>{{item.name}}</ion-col>
+        <ion-col>{{item.cooktime}}</ion-col>
+      </ion-row></ion-item>
+  </ng-container>
+</ion-list>
