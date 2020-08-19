@@ -25,11 +25,11 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
 
   isComplete = false;
   subscription$: Subscription;
-  printedRecipesSubject$ = new Subject<RecipeTest[]>();
+  printedRecipesSubject$ = new BehaviorSubject<RecipeTest[]>([]);
 
   constructor() {
     // this.recipes = allRecipes;
-    //console.log(this.recipes);
+    // console.log(this.recipes);
 
     this.smallRecipes = [
       new RecipeTest("2", "Scampi", "Ina Garten", 120, "Modified by reducing butter", "Preheat the oven to 425 degrees F, drain", ["2\/3 cup panko\r", "3 tablespoon olive oil\r"], [ "seafood", "shrimp"]),
@@ -44,7 +44,7 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    console.log('in ngoninit');
     this.subscription$ = this.getRecipeSubject().subscribe(
       (value: RecipeTest[]) => {
         // Next
@@ -71,7 +71,7 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
   }
 
   handleSearch(){
-    console.log('Scampi'.includes(this.wordSearch));
+    console.log('Test ', 'Scampi'.includes(this.wordSearch));
     console.log(this.smallRecipes);
     console.log('toto--');
     console.log(this.printedRecipes);
@@ -84,12 +84,14 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
   }
 
   setRecipeSubject(value: RecipeTest[]) {
+    console.log('in setRecipeSubject', value);
     this.printedRecipesSubject$.next(value);
   }
-
+/*
   clearRecipeSubject() {
-    this.printedRecipesSubject$.next();
+//    this.printedRecipesSubject$.next();
   }
+*/
 
   // Optional, as reminder
   errorRecipeSubject() {
@@ -107,9 +109,10 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
     this.setRecipeSubject(recipes);
   }
 
+  /*
   clearObservable() {
     this.clearRecipeSubject();
-  }
+  }*/
 
   setObservableError() {
     console.log('setObservableError');
