@@ -5,9 +5,7 @@ import { RecipesComponentComponent } from './recipes-component/recipes-component
 
 
 @NgModule({
-  declarations: [
-    RecipesComponentComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule
   ]
