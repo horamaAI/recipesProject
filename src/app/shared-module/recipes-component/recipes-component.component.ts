@@ -7,6 +7,8 @@ import { Subject, Observable, BehaviorSubject } from 'rxjs';
 
 
 import allRecipes from './../../shared/recipe.json';
+import { ModalController } from '@ionic/angular';
+import { RecipeModalComponent } from '../recipe-modal/recipe-modal.component';
 
 
 @Component({
@@ -28,15 +30,15 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
   subscription$: Subscription;
   printedRecipesSubject$ = new BehaviorSubject<RecipeTest[]>([]);
 
-  constructor() {
+  constructor(public modalController: ModalController) {
     this.recipes = Object.values(allRecipes);
     // console.log(this.recipes);
 
-    this.smallRecipes = [
-      new RecipeTest("2", "Scampi", "Ina Garten", 120, "Modified by reducing butter", "Preheat the oven to 425 degrees F, drain", ["2\/3 cup panko\r", "3 tablespoon olive oil\r"], [ "seafood", "shrimp"]),
-      new RecipeTest("3", "Shrimp", "Garten", 30, "butter and salt", "Preheat, drain", ["2\/3 cup panko\r", "3 tablespoon olive oil\r"], [ "seafood", "shrimp"]),
-      new RecipeTest("4", "Baked", "Ina Garten", 10, "Modified butter and salt", "Preheat the oven to 425 degrees F, drain", ["2\/3 cup panko\r", "3 tablespoon olive oil\r"], [ "seafood", "shrimp"])
-    ];
+    // this.smallRecipes = [
+    //   new RecipeTest("2", "Scampi", "Ina Garten", 120, "Modified by reducing butter", "Preheat the oven to 425 degrees F, drain", ["2\/3 cup panko\r", "3 tablespoon olive oil\r"], [ "seafood", "shrimp"]),
+    //   new RecipeTest("3", "Shrimp", "Garten", 30, "butter and salt", "Preheat, drain", ["2\/3 cup panko\r", "3 tablespoon olive oil\r"], [ "seafood", "shrimp"]),
+    //   new RecipeTest("4", "Baked", "Ina Garten", 10, "Modified butter and salt", "Preheat the oven to 425 degrees F, drain", ["2\/3 cup panko\r", "3 tablespoon olive oil\r"], [ "seafood", "shrimp"])
+    // ];
 
 //    this.setObservable([...this.smallRecipes]);
     this.setObservable([...this.recipes]);
@@ -84,8 +86,18 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
     console.log(this.printedRecipes);
   }
 
-  handleClickOpenRecipeModal(recipeId: number){
-    console.log(recipeId);
+  async handleClickOpenRecipeModal(recipeId: number){
+    console.log('test 1 2 3 :', recipeId, this.recipes[2]);
+    console.log('test 1 2', recipeId, this.recipes[recipeId]);
+    const modal = await this.modalController.create({
+      component: RecipeModalComponent,
+      cssClass: '',
+      componentProps: {
+        'recipe': this.recipes[recipeId],
+        'toto': 'Toto à la plage'
+      }
+    });
+    return await modal.present();
   }
 
   getRecipeSubject(): Observable<RecipeTest[]> {
