@@ -17,10 +17,11 @@ import allRecipes from './../../shared/recipe.json';
 
 export class RecipesComponentComponent implements OnInit, OnDestroy {
 
-  recipes: any;
+  recipes: any[];
 
   wordSearch: string;
   smallRecipes: RecipeTest[];
+//  printedRecipes: RecipeTest[];
   printedRecipes: RecipeTest[];
 
   isComplete = false;
@@ -28,7 +29,7 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
   printedRecipesSubject$ = new BehaviorSubject<RecipeTest[]>([]);
 
   constructor() {
-    // this.recipes = allRecipes;
+    this.recipes = Object.values(allRecipes);
     // console.log(this.recipes);
 
     this.smallRecipes = [
@@ -37,8 +38,9 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
       new RecipeTest("4", "Baked", "Ina Garten", 10, "Modified butter and salt", "Preheat the oven to 425 degrees F, drain", ["2\/3 cup panko\r", "3 tablespoon olive oil\r"], [ "seafood", "shrimp"])
     ];
 
-    this.setObservable([...this.smallRecipes]);
-    console.log(this.smallRecipes);
+//    this.setObservable([...this.smallRecipes]);
+    this.setObservable([...this.recipes]);
+    console.log(this.recipes[2].name);
     console.log('toto');
     console.log(this.printedRecipes);
   }
@@ -46,8 +48,9 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log('in ngoninit');
     this.subscription$ = this.getRecipeSubject().subscribe(
-      (value: RecipeTest[]) => {
-        // Next
+//      (value: RecipeTest[]) => {
+        (value: any[]) => {
+          // Next
         console.log('CallObservableComponent Next', value);
         this.printedRecipes = value;
       }, (error) => {
@@ -72,11 +75,17 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
 
   handleSearch(){
     console.log('Test ', 'Scampi'.includes(this.wordSearch));
-    console.log(this.smallRecipes);
+//    console.log(this.smallRecipes);
+    console.log(this.recipes);
     console.log('toto--');
     console.log(this.printedRecipes);
-    this.setObservable(this.printedRecipes.filter(recipe => recipe.name.toLowerCase().includes(this.wordSearch.toLowerCase())));
+//    this.setObservable(this.printedRecipes.filter(recipe => recipe.name.toLowerCase().includes(this.wordSearch.toLowerCase())));
+    this.setObservable(this.printedRecipes.filter(recipe => recipe.name.toLowerCase().startsWith(this.wordSearch.toLowerCase())));
     console.log(this.printedRecipes);
+  }
+
+  handleClickOpenRecipeModal(recipeId: number){
+    console.log(recipeId);
   }
 
   getRecipeSubject(): Observable<RecipeTest[]> {
