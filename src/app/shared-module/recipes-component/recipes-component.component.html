@@ -16,12 +16,13 @@
     <ion-col>Name</ion-col>
     <ion-col>Servings</ion-col>
   </ion-row>
-<ng-container *ngFor="let recipe of printedRecipes">
-  <ion-item>
-      <ion-row (click)="handleClickOpenRecipeModal(recipe.id)">
-        <ion-col>{{recipe.name}}</ion-col>
-        <ion-col>{{recipe.servings}}</ion-col>
-      </ion-row></ion-item>
+  <ng-container *ngFor="let recipe of printedRecipes">
+    <ion-item>
+        <ion-row (click)="handleClickOpenRecipeModal(recipe.id)">
+          <ion-col>{{recipe.name}}</ion-col>
+          <ion-col>{{recipe.servings}}</ion-col>
+        </ion-row>
+    </ion-item>
   </ng-container>
 </ion-list>
 
