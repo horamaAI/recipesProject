@@ -93,8 +93,8 @@ export class RecipesComponentComponent implements OnInit, OnDestroy {
       component: RecipeModalComponent,
       cssClass: '',
       componentProps: {
-        'recipe': this.recipes[recipeId],
-        'toto': 'Toto à la plage'
+        recipe: this.recipes[recipeId],
+        toto: 'Toto à la plage'
       }
     });
     return await modal.present();
